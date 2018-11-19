@@ -1,0 +1,209 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+set $mod Mod4
+
+# Styling
+font pango:System San Francisco Display, Awesome 12
+
+set $bg-color            #2f343f
+set $active-bg-color     #b2b2b2
+set $active-text-color   #000000
+set $inactive-bg-color   #2f343f
+set $text-color          #f3f4f5p
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E53935
+
+#                       border              background         text                 indicator
+client.focused          $active-bg-color     $active-bg-color   $active-text-color   #00ff00
+client.unfocused        $inactive-bg-color   $inactive-bg-color $inactive-text-color #00ff00
+client.focused_inactive $inactive-bg-color   $inactive-bg-color $inactive-text-color #00ff00
+client.urgent           $urgent-bg-color     $urgent-bg-color   $text-color          #00ff00
+
+hide_edge_borders smart
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+focus_follows_mouse no
+
+# start a terminal
+bindsym $mod+Return exec termite
+
+bindsym $mod+u exec chromium
+
+# kill focused window
+bindsym $mod+Shift+Q kill
+
+# start dmenu (a program launcher)
+# bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+s exec --no-startup-id i3-dmenu-desktop
+
+# focus
+bindsym $mod+n focus left
+bindsym $mod+e focus down
+bindsym $mod+i focus up
+bindsym $mod+o focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+n move left
+bindsym $mod+Shift+e move down
+bindsym $mod+Shift+i move up
+bindsym $mod+Shift+o move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+t fullscreen toggle
+# enter floating media mode
+bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+r layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+f layout toggle split
+
+# toggle tiling / floating or sticky
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+s sticky toggle
+
+# change focus between tiling / floating window
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+p restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+f exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Move workspace to main or secondary screen
+bindsym $mod+Shift+G move workspace to output up
+
+# Bind autolock
+bindsym $mod+l exec i3lock -c 000000 -n
+
+# keyboard layouts
+bindsym $mod+7 exec setxkbmap us -variant colemak && xmodmap ~/Xmodmap;
+bindsym $mod+8 exec setxkbmap fr
+bindsym $mod+9 exec setxkbmap us
+
+
+# focus the child container
+#bindsym $mod+d focus child
+
+set $screen1 "HDMI2"
+set $screen2 "eDP1"
+
+set $wk1 "1: &#xf268;"
+set $wk2 "2: &#xf121;"
+set $wk3 "3: &#xf1d7;"
+set $wk4 "4: &#xf268;"
+set $wk5 "5: &#xf1fe;"
+set $wk6 "6"
+# set $wk7 "7"
+# set $wk8 "8"
+# set $wk9 "9"
+set $wk10 "&#xf001;"
+
+workspace $wk1 output $screen1
+workspace $wk2 output $screen1
+workspace $wk3 output $screen1
+workspace $wk4 output $screen1
+workspace $wk5 output $screen2
+workspace $wk6 output $screen2
+# workspace $wk7 output $screen1
+# workspace $wk8 output $screen1
+# workspace $wk9 output $screen1
+workspace $wk10 output $screen1
+
+# switch to workspace
+bindsym $mod+1 workspace $wk1
+bindsym $mod+2 workspace $wk2
+bindsym $mod+3 workspace $wk3
+bindsym $mod+4 workspace $wk4
+bindsym $mod+5 workspace $wk5
+bindsym $mod+6 workspace $wk6
+# bindsym $mod+7 workspace $wk7
+# bindsym $mod+8 workspace $wk8
+# bindsym $mod+9 workspace $wk9
+bindsym $mod+0 workspace $wk10
+
+# move focused container to workspace
+bindsym $mod+Shift+exclam move container to workspace $wk1
+bindsym $mod+Shift+at move container to workspace $wk2
+bindsym $mod+Shift+numbersign move container to workspace $wk3
+bindsym $mod+Shift+dollar move container to workspace $wk4
+bindsym $mod+Shift+percent move container to workspace $wk5
+bindsym $mod+Shift+asciicircum move container to workspace $wk6
+bindsym $mod+Shift+ampersand move container to workspace $wk7
+bindsym $mod+Shift+asterisk move container to workspace $wk8
+bindsym $mod+Shift+parenleft move container to workspace $wk9
+bindsym $mod+Shift+parenright move container to workspace $wk10
+
+# amixer controls
+bindsym XF86AudioRaiseVolume exec amixer set Master 5%+; exec pkill  -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-; exec pkill  -RTMIN+10 i3blocks
+bindsym $mod+m exec amixer set Master toggle;  exec pkill  -RTMIN+10 i3blocks
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+
+
+# resize window (you can also use the mouse for that)
+bindsym $mod+p mode "resize"
+mode "resize" {
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        position top
+        status_command i3blocks
+                                colors {
+                                        background $bg-color
+                                        separator #757575
+                                        #                  border             background         text
+                                        focused_workspace  $bg-color          $bg-color          $text-color
+                                        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+                                        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+                                }
+}
+
+# =========== Exec on startup ==========
+
+# load default layout
+exec autorandr multi
+
+# Background
+exec_always feh --bg-center ~/Pictures/colemak.png
+
+# Keyboard mapping modifications
+exec_always xmodmap ~/Xmodmap
+
+# fix Ctrl Maj E shortcut
+exec_always ibus-daemon

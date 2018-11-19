@@ -1,0 +1,13 @@
+*
+
+!/.gitignore
+!/.i3/
+!/.i3/**
+!/Xmodmap
+!/.zshrc
+!/.oh-my-zsh
+!/.oh-my-zsh/**
+!/.config/
+!/.config/termite/
+!/.config/termite/**
+

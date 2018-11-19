@@ -1,0 +1,18 @@
+! Right Windows Key become Mode_switch
+keycode 62 = Mode_switch
+
+! Navigation keys on Mode_switch / Modified alt gr
+keycode 38 = a A Left 0 agrave
+keycode 39 = r R Down 0 egrave
+keycode 40 = s S Up
+keycode 41 = t T Right
+keycode 24 = q Q Home
+keycode 25 = w W Next
+keycode 26 = f F Prior
+keycode 27 = p P End
+
+! Modified alt gr
+keycode 31 = u U 0 0 ugrave
+
+! >/< azerty additional key
+keycode 94 = Escape Insert
