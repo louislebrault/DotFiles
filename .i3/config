@@ -207,3 +207,6 @@ exec_always xmodmap ~/Xmodmap
 
 # fix Ctrl Maj E shortcut
 exec_always ibus-daemon
+
+# set keyboard repeat rate
+exec_always xset r rate 150 40
