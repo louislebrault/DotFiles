@@ -10,6 +10,7 @@ keycode 24 = q Q Home
 keycode 25 = w W Next
 keycode 26 = f F Prior
 keycode 27 = p P End
+keycode 46 = i I 0 0 idiaeresis
 
 ! Modified alt gr
 keycode 31 = u U 0 0 ugrave
