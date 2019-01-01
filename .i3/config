@@ -209,4 +209,4 @@ exec_always xmodmap ~/Xmodmap
 exec_always ibus-daemon
 
 # set keyboard repeat rate
-exec_always xset r rate 150 40
+exec_always xset r rate 200 40
