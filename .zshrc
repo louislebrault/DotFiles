@@ -67,6 +67,7 @@ plugins=(
   git
   gitfast
   z
+  ssh-agent
 )
 
 source $ZSH/oh-my-zsh.sh
