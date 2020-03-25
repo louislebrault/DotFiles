@@ -103,6 +103,8 @@ bindsym $mod+7 exec setxkbmap us -variant colemak && xmodmap ~/Xmodmap;
 bindsym $mod+8 exec setxkbmap fr
 bindsym $mod+9 exec setxkbmap us
 
+# load keyboard config with left maj modifier
+bindsym $mod+0 exec xmodmap ~/Xmodmap2
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -119,7 +121,7 @@ set $wk6 "6"
 # set $wk7 "7"
 # set $wk8 "8"
 # set $wk9 "9"
-set $wk10 "&#xf001;"
+# set $wk10 "&#xf001;"
 
 workspace $wk1 output $screen1
 workspace $wk2 output $screen1
@@ -130,7 +132,7 @@ workspace $wk6 output $screen2
 # workspace $wk7 output $screen1
 # workspace $wk8 output $screen1
 # workspace $wk9 output $screen1
-workspace $wk10 output $screen1
+# workspace $wk10 output $screen1
 
 # switch to workspace
 bindsym $mod+1 workspace $wk1
@@ -142,7 +144,7 @@ bindsym $mod+6 workspace $wk6
 # bindsym $mod+7 workspace $wk7
 # bindsym $mod+8 workspace $wk8
 # bindsym $mod+9 workspace $wk9
-bindsym $mod+0 workspace $wk10
+# bindsym $mod+0 workspace $wk10
 
 # move focused container to workspace
 bindsym $mod+Shift+exclam move container to workspace $wk1
@@ -157,14 +159,14 @@ bindsym $mod+Shift+parenleft move container to workspace $wk9
 bindsym $mod+Shift+parenright move container to workspace $wk10
 
 # amixer controls
-bindsym XF86AudioRaiseVolume exec amixer set Master 5%+; exec pkill  -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec amixer set Master 5%-; exec pkill  -RTMIN+10 i3blocks
-bindsym $mod+m exec amixer set Master toggle;  exec pkill  -RTMIN+10 i3blocks
+
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-
 
 
 # resize window (you can also use the mouse for that)
