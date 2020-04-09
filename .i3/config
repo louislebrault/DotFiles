@@ -109,8 +109,8 @@ bindsym $mod+0 exec xmodmap ~/Xmodmap2
 # focus the child container
 #bindsym $mod+d focus child
 
-set $screen1 "HDMI2"
-set $screen2 "eDP1"
+set $screen1 "HDMI-2"
+set $screen2 "eDP-1"
 
 set $wk1 "1: &#xf268;"
 set $wk2 "2: &#xf121;"
@@ -186,14 +186,14 @@ mode "resize" {
 bar {
         position top
         status_command i3blocks
-                                colors {
-                                        background $bg-color
-                                        separator #757575
-                                        #                  border             background         text
-                                        focused_workspace  $bg-color          $bg-color          $text-color
-                                        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-                                        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-                                }
+        colors {
+                background $bg-color
+                separator #757575
+                #                  border             background         text
+                focused_workspace  $bg-color          $bg-color          $text-color
+                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+        }
 }
 
 # =========== Exec on startup ==========
