@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/louis/dev/packaging/apps/front/src/states'
+let g:netrw_dirhist_7='/home/louis/dev/packaging/apps/front/src'
+let g:netrw_dirhist_6='/home/louis/dev/packaging/apps/front'
+let g:netrw_dirhist_5='/home/louis/dev/packaging/apps'
+let g:netrw_dirhist_4='/home/louis/dev/packaging'
+let g:netrw_dirhist_3='/home/louis'
+let g:netrw_dirhist_2='/home/louis/.config'
+let g:netrw_dirhist_1='/home/louis/.config/nvim'

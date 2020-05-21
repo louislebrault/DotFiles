@@ -10,4 +10,5 @@
 !/.config/
 !/.config/termite/
 !/.config/termite/**
-
+!/.config/nvim/
+!/.config/nvim/**
