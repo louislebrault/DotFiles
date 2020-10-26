@@ -21,22 +21,15 @@ set shiftwidth=2
 set nofoldenable
 colorscheme codedark
 set number relativenumber
-set autochdir
 
 let mapleader=' ' 
 
 imap hh <ESC>
 
-nmap <Leader>p :ProjectFiles<CR>
+nmap <Leader>p :Files<CR>
 nmap <Leader>t :NERDTreeToggle<CR>
 nmap <Leader><Leader>w :w<CR>
 nmap <Leader><Leader>q :q<CR>
-
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-
-command! ProjectFiles execute 'Files' s:find_git_root()
 
 " stylelint ca a l'air de bien pas marcher
 let g:ale_fixers = {
