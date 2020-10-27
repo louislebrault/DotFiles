@@ -8,21 +8,29 @@ Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'w0rp/ale'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'zivyangll/git-blame.vim'
+Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
 " Initialize plugin system
 call plug#end()
 
 set foldmethod=indent
 set shiftwidth=2
 set nofoldenable
-colorscheme codedark
+colorscheme gruvbox
 set number relativenumber
+set tags=tags; " look for tags file
+set autoindent
 
-let mapleader=' ' 
+autocmd BufWritePre * %s/\s\+$//e " remove trailling whitespaces on save
+
+let mapleader=' '
 
 imap hh <ESC>
 
@@ -30,16 +38,25 @@ nmap <Leader>p :Files<CR>
 nmap <Leader>t :NERDTreeToggle<CR>
 nmap <Leader><Leader>w :w<CR>
 nmap <Leader><Leader>q :q<CR>
+" switch split focus
+map <Leader>w <C-W>w
+" open new vertical split
+nmap <Leader>s :vsp<CR>
+" open new tab
+nmap <Leader>o :tabnew<CR>
+" switch tab focus
+nmap <Leader>n :tabn<CR>
 
-" stylelint ca a l'air de bien pas marcher
-let g:ale_fixers = {
- \ 'javascript': ['eslint'],
- \ 'css': ['stylelint']
- \ }
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+"======================
+" :Ag on cursor
+noremap <Leader>a  :Ag! <C-r>=Escape(expand('<cword>'))<CR><CR>
 
-let g:ale_fix_on_save = 1
+function! Escape(stuff)
+    return substitute(escape(a:stuff, '\/.*$^~[]'), "\n", '\\n', "g")
+endfunction
+"=======================
 
-" remove trailling whitespaces on save
-autocmd BufWritePre * %s/\s\+$//e
+" lightline theme
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ }
