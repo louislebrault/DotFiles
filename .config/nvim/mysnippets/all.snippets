@@ -1,10 +1,14 @@
 snippet jdescribe "jest describe" b
-describe('', () => {
-  it('', () => {
-    const actual =
-    const expected =
+describe('$1', () => {
+  it('$2', () => {
+    const actual = $3
+    const expected = $4
 
     expect(actual).toEqual(expected)
   })
 })
+endsnippet
+
+snippet cl "console.log" b
+console.log('$1', $1)
 endsnippet
