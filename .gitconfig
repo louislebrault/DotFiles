@@ -1,0 +1,6 @@
+[user]
+	email = louis.lebrault@gmail.com
+	name = Louis Lebrault
+[core]
+	editor = nano
+	excludesfile = /home/louis/.gitignore_global

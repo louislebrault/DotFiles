@@ -1,6 +1,8 @@
 *
 
 !/.gitignore
+!/.gitconfig
+!/.gitignore_global
 !/.i3/
 !/.i3/**
 !/Xmodmap
@@ -10,4 +12,5 @@
 !/.config/
 !/.config/termite/
 !/.config/termite/**
-!/.config/nvim/init.vim
+!/.config/nvim/
+!/.config/nvim/**

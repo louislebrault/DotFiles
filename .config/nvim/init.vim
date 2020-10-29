@@ -12,11 +12,12 @@ Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'zivyangll/git-blame.vim'
-Plug 'vim-scripts/taglist.vim'
 Plug 'vim-scripts/vim-gitgutter'
-Plug 'jiangmiao/auto-pairs'
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox' " colorscheme
+Plug 'SirVer/ultisnips' " snippets engine
+Plug 'tpope/vim-surround'
+
 " Initialize plugin system
 call plug#end()
 
@@ -34,10 +35,14 @@ let mapleader=' '
 
 imap hh <ESC>
 
-nmap <Leader>p :Files<CR>
-nmap <Leader>t :NERDTreeToggle<CR>
+nmap <Leader>p :GFiles<CR>
+nmap <Leader><Leader>p :Files<CR>
+nmap <Leader>t :Tags<CR>
+nmap <Leader><Leader>t :BTags<CR>
+nmap <Leader>` :NERDTreeToggle<CR>
 nmap <Leader><Leader>w :w<CR>
 nmap <Leader><Leader>q :q<CR>
+nmap <Leader><Leader><Leader>q :q!<CR>
 " switch split focus
 map <Leader>w <C-W>w
 " open new vertical split
@@ -60,3 +65,6 @@ endfunction
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ }
+
+let g:UltiSnipsSnippetDirectories=["UltiSnips", 'mysnippets']
+
