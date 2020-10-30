@@ -10,7 +10,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'zivyangll/git-blame.vim'
 Plug 'vim-scripts/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
@@ -35,10 +34,17 @@ let mapleader=' '
 
 imap hh <ESC>
 
+" so no need to hold maj + : for command-line mode. didnt find a working
+" solution to swap back ; functionnaly on :
+nnoremap ; :
+
 nmap <Leader>p :GFiles<CR>
 nmap <Leader><Leader>p :Files<CR>
 nmap <Leader>t :Tags<CR>
 nmap <Leader><Leader>t :BTags<CR>
+" show fuzzy history. as H is nearly a home row, consider use it for a more
+" common action in the future tho
+nmap <Leader>h :History<CR>
 nmap <Leader>` :NERDTreeToggle<CR>
 nmap <Leader><Leader>w :w<CR>
 nmap <Leader><Leader>q :q<CR>
