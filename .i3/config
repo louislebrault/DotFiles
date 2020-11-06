@@ -30,13 +30,13 @@ focus_follows_mouse no
 # start a terminal
 bindsym $mod+Return exec termite
 
+# open browser
 bindsym $mod+u exec chromium
 
 # kill focused window
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+s exec --no-startup-id i3-dmenu-desktop
 
 # focus
@@ -99,12 +99,12 @@ bindsym $mod+Shift+G move workspace to output up
 bindsym $mod+l exec i3lock -c 000000 -n
 
 # keyboard layouts
-bindsym $mod+7 exec setxkbmap us -variant colemak && xmodmap ~/Xmodmap;
-bindsym $mod+8 exec setxkbmap fr
-bindsym $mod+9 exec setxkbmap us
+bindsym $mod+1 exec setxkbmap us -variant colemak && xmodmap ~/Xmodmap;
+bindsym $mod+2 exec setxkbmap fr
+bindsym $mod+3 exec setxkbmap us
 
 # load keyboard config with left maj modifier
-bindsym $mod+0 exec xmodmap ~/Xmodmap2
+bindsym $mod+4 exec xmodmap ~/Xmodmap2
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -135,28 +135,28 @@ workspace $wk6 output $screen2
 # workspace $wk10 output $screen1
 
 # switch to workspace
-bindsym $mod+1 workspace $wk1
-bindsym $mod+2 workspace $wk2
-bindsym $mod+3 workspace $wk3
-bindsym $mod+4 workspace $wk4
-bindsym $mod+5 workspace $wk5
-bindsym $mod+6 workspace $wk6
+bindsym $mod+7 workspace $wk1
+bindsym $mod+8 workspace $wk2
+bindsym $mod+9 workspace $wk3
+bindsym $mod+0 workspace $wk4
+bindsym $mod+minus workspace $wk5
+bindsym $mod+equal workspace $wk6
 # bindsym $mod+7 workspace $wk7
 # bindsym $mod+8 workspace $wk8
 # bindsym $mod+9 workspace $wk9
 # bindsym $mod+0 workspace $wk10
 
 # move focused container to workspace
-bindsym $mod+Shift+exclam move container to workspace $wk1
-bindsym $mod+Shift+at move container to workspace $wk2
-bindsym $mod+Shift+numbersign move container to workspace $wk3
-bindsym $mod+Shift+dollar move container to workspace $wk4
-bindsym $mod+Shift+percent move container to workspace $wk5
-bindsym $mod+Shift+asciicircum move container to workspace $wk6
-bindsym $mod+Shift+ampersand move container to workspace $wk7
-bindsym $mod+Shift+asterisk move container to workspace $wk8
-bindsym $mod+Shift+parenleft move container to workspace $wk9
-bindsym $mod+Shift+parenright move container to workspace $wk10
+bindsym $mod+Shift+ampersand move container to workspace $wk1
+bindsym $mod+Shift+asterisk move container to workspace $wk2
+bindsym $mod+Shift+parenleft move container to workspace $wk3
+bindsym $mod+Shift+parenright move container to workspace $wk4
+bindsym $mod+Shift+underscore move container to workspace $wk5
+bindsym $mod+Shift+plus move container to workspace $wk6
+#bindsym $mod+Shift+ampersand move container to workspace $wk7
+#bindsym $mod+Shift+asterisk move container to workspace $wk8
+#bindsym $mod+Shift+parenleft move container to workspace $wk9
+#bindsym $mod+Shift+parenright move container to workspace $wk10
 
 # amixer controls
 
