@@ -9,6 +9,14 @@ describe('$1', () => {
 })
 endsnippet
 
+snippet jit "jest it" b
+it('$1', () => {
+  const actual = $2
+  const expected = $3
+
+  expect(actual).toEqual(expected)
+})
+endsnippet
 snippet cl "console.log" b
 console.log('$1', $1)
 endsnippet

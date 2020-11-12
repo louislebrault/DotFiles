@@ -11,7 +11,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'zivyangll/git-blame.vim'
-Plug 'vim-scripts/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox' " colorscheme
 Plug 'SirVer/ultisnips' " snippets engine
@@ -30,9 +30,11 @@ set autoindent
 
 autocmd BufWritePre * %s/\s\+$//e " remove trailling whitespaces on save
 
-let mapleader=' '
+set tabstop=2 shiftwidth=2 expandtab " use spaces for tabs
 
-imap hh <ESC>
+set colorcolumn=120 " show when line exceed 120 char
+
+let mapleader=' '
 
 " so no need to hold maj + : for command-line mode. didnt find a working
 " solution to swap back ; functionnaly on :
@@ -45,8 +47,8 @@ nmap <Leader><Leader>t :BTags<CR>
 " show fuzzy history. as H is nearly a home row, consider use it for a more
 " common action in the future tho
 nmap <Leader>h :History<CR>
-nmap <Leader>` :NERDTreeToggle<CR>
-nmap <Leader><Leader>w :w<CR>
+nmap <Leader>` :w<CR>
+nmap <Leader><Leader>w :NERDTreeToggle<CR>
 nmap <Leader><Leader>q :q<CR>
 nmap <Leader><Leader><Leader>q :q!<CR>
 " switch split focus

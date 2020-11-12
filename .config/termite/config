@@ -35,3 +35,6 @@ color15 = #eceff4
 [options]
 font = Monospace 9
 
+# Length of the scrollback buffer, 0 disabled the scrollback buffer
+# and setting it to a negative value means "infinite scrollback"
+scrollback_lines = 5000
