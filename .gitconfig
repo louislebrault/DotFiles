@@ -2,5 +2,5 @@
 	email = louis.lebrault@gmail.com
 	name = Louis Lebrault
 [core]
-	editor = nano
+	editor = vim
 	excludesfile = /home/louis/.gitignore_global

@@ -36,9 +36,9 @@ set colorcolumn=120 " show when line exceed 120 char
 
 let mapleader=' '
 
-" so no need to hold maj + : for command-line mode. didnt find a working
-" solution to swap back ; functionnaly on :
-nnoremap ; :
+" switch ; and : so no need to hold maj + : for command-line mode > cant swap
+" the two bindings without screwing the config it seems
+" nnoremap ; :
 
 nmap <Leader>p :GFiles<CR>
 nmap <Leader><Leader>p :Files<CR>
