@@ -3,16 +3,14 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'tomasiser/vim-code-dark'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'zivyangll/git-blame.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim' " status bar
 Plug 'morhetz/gruvbox' " colorscheme
 Plug 'SirVer/ultisnips' " snippets engine
 Plug 'tpope/vim-surround'
@@ -36,19 +34,14 @@ set colorcolumn=120 " show when line exceed 120 char
 
 let mapleader=' '
 
-" switch ; and : so no need to hold maj + : for command-line mode > cant swap
-" the two bindings without screwing the config it seems
-" nnoremap ; :
-
 nmap <Leader>p :GFiles<CR>
-nmap <Leader><Leader>p :Files<CR>
+nmap <Leader>f :Files<CR>
 nmap <Leader>t :Tags<CR>
 nmap <Leader><Leader>t :BTags<CR>
 " show fuzzy history. as H is nearly a home row, consider use it for a more
 " common action in the future tho
 nmap <Leader>h :History<CR>
 nmap <Leader>` :w<CR>
-nmap <Leader><Leader>w :NERDTreeToggle<CR>
 nmap <Leader><Leader>q :q<CR>
 nmap <Leader><Leader><Leader>q :q!<CR>
 " switch split focus
