@@ -3,8 +3,7 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
+Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -37,7 +36,7 @@ let mapleader=' '
 nmap <Leader>p :GFiles<CR>
 nmap <Leader>f :Files<CR>
 nmap <Leader>t :Tags<CR>
-nmap <Leader><Leader>t :BTags<CR>
+nmap <Leader>g :BTags<CR>
 " show fuzzy history. as H is nearly a home row, consider use it for a more
 " common action in the future tho
 nmap <Leader>h :History<CR>

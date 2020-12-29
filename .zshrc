@@ -126,3 +126,16 @@ complete -o nospace -C /home/louis/.cache/yay/symfony-cli/pkg/symfony-cli/usr/bi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+###### ANDROID STUDIO STUFF #######
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk/"
+export _JAVA_AWT_WM_NONREPARENTING=1 # Fixes grey java apps
+export PATH=$PATH:$JAVA_HOME/bin:$PATH
+
+####################################
