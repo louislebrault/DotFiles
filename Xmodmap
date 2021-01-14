@@ -10,7 +10,7 @@ keycode 24 = q Q Home
 keycode 25 = w W Next
 keycode 26 = f F Prior
 keycode 27 = p P End
-keycode 28 = g G Escape
+keycode 65 = space space Escape
 
 ! Modified alt gr
 keycode 31 = u U 0 0 ugrave
