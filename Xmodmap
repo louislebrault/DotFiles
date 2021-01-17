@@ -2,8 +2,8 @@
 keycode 78 = Mode_switch
 
 ! Navigation keys on Mode_switch / Modified alt gr
-keycode 38 = a A Left 0 agrave
-keycode 39 = r R Down 0 egrave
+keycode 38 = a A Left 0 agrave Agrave
+keycode 39 = r R Down 0 egrave Egrave
 keycode 40 = s S Up
 keycode 41 = t T Right
 keycode 24 = q Q Home
