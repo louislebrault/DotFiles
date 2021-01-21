@@ -43,12 +43,10 @@ nmap <Leader>g :BTags<CR>
 " common action in the future tho
 nmap <Leader>h :History<CR>
 nmap <Leader>` :w<CR>
-" trying with F4, remove one of the two :w shorcuts later
 nmap <F4> :w<CR>
 nmap <F6> :q<CR>
 inoremap <F8> <ESC>:w<CR>
-nmap <Leader><Leader>q :q<CR>
-nmap <Leader><Leader><Leader>q :q!<CR>
+inoremap <F9> <ESC>:wq<CR>
 nmap <Leader>e :Tex<CR>
 " switch split focus
 map <Leader>w <C-W>w
