@@ -3,7 +3,7 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'sheerun/vim-polyglot' " syntax highlight and indent for all languages
+Plug 'sheerun/vim-polyglot' " syntax hightlight and indent for all languages
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -39,6 +39,10 @@ nmap <Leader>p :GFiles<CR>
 nmap <Leader>f :Files<CR>
 nmap <Leader>t :Tags<CR>
 nmap <Leader>g :BTags<CR>
+" manually fix lint, remove if set back lint on save
+nmap <Leader>l :ALEFix<CR>
+" lint haskell files
+nmap <Leader>u :%!stylish-haskell<CR>
 " show fuzzy history. as H is nearly a home row, consider use it for a more
 " common action in the future tho
 nmap <Leader>h :History<CR>
@@ -92,7 +96,6 @@ let g:ale_fixers = {
 \  'vue': ['eslint'],
 \}
 
-" Fix files automatically on save
 let g:ale_fix_on_save = 1
 " Coc is on charge of LSP, this line may need to be moved at the top of the
 " file ? https://github.com/dense-analysis/ale#faq-coc-nvim
