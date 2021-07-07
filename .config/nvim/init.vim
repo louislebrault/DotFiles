@@ -51,7 +51,7 @@ nmap <F4> :w<CR>
 nmap <F6> :q<CR>
 inoremap <F8> <ESC>:w<CR>
 inoremap <F9> <ESC>:wq<CR>
-nmap <Leader>e :Tex<CR>
+nmap <Leader>e :Ex<CR>
 " switch split focus
 map <Leader>w <C-W>w
 " open new vertical split
@@ -152,3 +152,4 @@ let g:gutentags_ctags_exclude = [
       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
+

@@ -77,6 +77,7 @@ plugins=(
   gitfast
   z
   ssh-agent
+  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
