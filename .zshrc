@@ -103,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export NPM_CONFIG_PREFIX="$HOME/.node_modules"
-export PATH="bin:node_modules/.bin:$HOME/.node_modules/bin:$PATH"
+export PATH="bin:node_modules/.bin:$HOME/.node_modules/bin:$PATH:$HOME/.ghcup/bin"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -139,4 +139,3 @@ export JAVA_HOME="/usr/lib/jvm/java-8-openjdk/"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Fixes grey java apps
 export PATH=$PATH:$JAVA_HOME/bin:$PATH
 
-####################################

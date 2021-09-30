@@ -15,6 +15,8 @@ Plug 'morhetz/gruvbox' " colorscheme
 Plug 'SirVer/ultisnips' " snippets engine
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags' " automatic ctags generation
+Plug 'Shougo/vimproc.vim', {'do' : 'make'} " for ghcmod-vim
+Plug 'eagletmt/ghcmod-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -63,6 +65,7 @@ nmap <Leader>n :tabn<CR>
 " Quickly insert an empty new line without entering insert mode
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
+
 
 "======================
 " :Ag on cursor
