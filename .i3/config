@@ -109,7 +109,7 @@ bindsym $mod+4 exec xmodmap ~/Xmodmap2
 # focus the child container
 #bindsym $mod+d focus child
 
-set $screen1 "HDMI-2"
+set $screen1 "HDMI-1"
 set $screen2 "eDP-1"
 
 set $wk1 "1: &#xf268;"
@@ -216,3 +216,6 @@ exec_always xset r rate 200 40
 
 # allow terminal transparency
 exec_always xcompmgr
+
+# less blue light, night mode. latlng is Paris
+exec redshift -l 48.864716:2.349014

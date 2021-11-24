@@ -5,6 +5,8 @@
 !/.gitignore_global
 !/.i3/
 !/.i3/**
+!/.xmonad/
+!/.xmonad/xmonad.hs
 !/Xmodmap
 !/.zshrc
 !/.oh-my-zsh

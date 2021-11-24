@@ -14,7 +14,7 @@ Plug 'itchyny/lightline.vim' " status bar
 Plug 'morhetz/gruvbox' " colorscheme
 Plug 'SirVer/ultisnips' " snippets engine
 Plug 'tpope/vim-surround'
-Plug 'ludovicchabant/vim-gutentags' " automatic ctags generation
+"Plug 'ludovicchabant/vim-gutentags' " automatic ctags generation
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} " for ghcmod-vim
 Plug 'eagletmt/ghcmod-vim'
 
