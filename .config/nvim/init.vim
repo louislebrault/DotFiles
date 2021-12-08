@@ -17,6 +17,7 @@ Plug 'tpope/vim-surround'
 "Plug 'ludovicchabant/vim-gutentags' " automatic ctags generation
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} " for ghcmod-vim
 Plug 'eagletmt/ghcmod-vim'
+Plug 'pbrisbin/vim-syntax-shakespeare' " shakespeare highlight
 
 " Initialize plugin system
 call plug#end()
