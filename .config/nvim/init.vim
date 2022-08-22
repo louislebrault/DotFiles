@@ -54,6 +54,8 @@ nmap <F4> :w<CR>
 nmap <F6> :q<CR>
 inoremap <F8> <ESC>:w<CR>
 inoremap <F9> <ESC>:wq<CR>
+" fix coc autocomplete adding a newline instead of completing when pressing enter
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 nmap <Leader>e :Ex<CR>
 " switch split focus
 map <Leader>w <C-W>w

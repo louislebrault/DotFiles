@@ -16,9 +16,8 @@ export ZSH="/home/louis/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-# Est-ce que cette ligne est devenu inutile maintenant que je suis sur powerlevel10k ?
-POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel10k/powerlevel10k"
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -134,8 +133,14 @@ complete -o nospace -C /home/louis/.cache/yay/symfony-cli/pkg/symfony-cli/usr/bi
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk/"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Fixes grey java apps
 export PATH=$PATH:$JAVA_HOME/bin:$PATH
 
+###### END ANDROID STUDIO STUFF #######
+
+export LEDGER_FILE=~/finance/2022.journal
+
+[ -f "/home/louis/.ghcup/env" ] && source "/home/louis/.ghcup/env" # ghcup-env
