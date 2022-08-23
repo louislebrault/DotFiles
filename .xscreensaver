@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-settings 6.04 for louis on Tue Aug 23 01:21:53 2022.
+# Written by xscreensaver-settings 6.04 for louis on Tue Aug 23 20:06:27 2022.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
@@ -14,8 +14,8 @@ splash:		True
 splashDuration:	0:00:05
 demoCommand:	xscreensaver-settings
 nice:		10
-fade:		True
-unfade:		True
+fade:		False
+unfade:		False
 fadeSeconds:	0:00:03
 ignoreUninstalledPrograms:False
 font:		
@@ -29,8 +29,8 @@ grabVideoFrames:    False
 chooseRandomImages: False
 imageDirectory:	
 
-mode:		random
-selected:	-1
+mode:		one
+selected:	242
 
 textMode:	url
 textLiteral:	XScreenSaver
@@ -171,7 +171,7 @@ programs:								      \
 - GL: 				antspotlight -root			    \n\
 				apple2 -root				    \n\
 - GL: 				atunnel -root				    \n\
-				barcode -root				    \n\
+-				barcode -root				    \n\
 - GL: 				blinkbox -root				    \n\
   GL: 				blocktube -root				    \n\
 - GL: 				bouncingcow -root			    \n\
