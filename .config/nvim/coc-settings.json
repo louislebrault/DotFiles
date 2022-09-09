@@ -4,7 +4,10 @@
   ],
   "languageserver": {
     "haskell": {
-      "command": "haskell-language-server-wrapper",
+      // should be haskell-language-server-wrapper
+      // so it works with any ghc version but its bugged
+      // or something, not working at all
+      "command": "haskell-language-server-9.0.2",
       "args": ["--lsp"],
       "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
       "filetypes": ["haskell", "lhaskell"]
