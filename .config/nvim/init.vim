@@ -6,6 +6,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot' " syntax hightlight and indent for all languages
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" Need to run :CocInstall <some-ts-server> on fresh installs, for every lsp
+" needed
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale' " Linting
 Plug 'zivyangll/git-blame.vim'
@@ -21,6 +23,9 @@ Plug 'pbrisbin/vim-syntax-shakespeare' " shakespeare highlight
 
 " Initialize plugin system
 call plug#end()
+
+" ignore mouse
+set mouse=
 
 set foldmethod=indent
 set shiftwidth=2
@@ -159,3 +164,5 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 
+" Coc
+nmap <silent> gd <Plug>(coc-definition)

@@ -144,3 +144,4 @@ export PATH=$PATH:$JAVA_HOME/bin:$PATH
 export LEDGER_FILE=~/finance/2022.journal
 
 [ -f "/home/louis/.ghcup/env" ] && source "/home/louis/.ghcup/env" # ghcup-env
+

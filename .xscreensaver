@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-settings 6.04 for louis on Tue Aug 23 20:06:27 2022.
+# Written by xscreensaver-settings 6.04 for louis on Fri Sep 16 15:22:04 2022.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
@@ -30,7 +30,7 @@ chooseRandomImages: False
 imageDirectory:	
 
 mode:		one
-selected:	242
+selected:	75
 
 textMode:	url
 textLiteral:	XScreenSaver
