@@ -114,6 +114,7 @@ export PATH="bin:node_modules/.bin:$HOME/.node_modules/bin:$PATH:$HOME/.ghcup/bi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias fzb="fzf --preview='bat --color=always {}'"
+alias aristid="cat ~/.aristid-vpn-pwd | sudo openconnect connect.cacom.fr -u knplabs --passwd-on-stdin"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/louis/google-cloud-sdk/path.zsh.inc' ]; then . '/home/louis/google-cloud-sdk/path.zsh.inc'; fi

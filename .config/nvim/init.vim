@@ -12,6 +12,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale' " Linting
 Plug 'zivyangll/git-blame.vim'
 Plug 'airblade/vim-gitgutter'
+" :GitBlameToggle to toggle it
+" :GitBlameOpenCommitURL opens commit diff on browser, works only if GitBlame
+" is enabled
+Plug 'f-person/git-blame.nvim'
 Plug 'itchyny/lightline.vim' " status bar
 Plug 'morhetz/gruvbox' " colorscheme
 Plug 'SirVer/ultisnips' " snippets engine
@@ -165,4 +169,28 @@ let g:gutentags_ctags_exclude = [
       \ ]
 
 " Coc
+
+" GoTo definition
 nmap <silent> gd <Plug>(coc-definition)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Symbol renaming
+" its bugged, logging an error
+nmap <leader>rn <Plug>(coc-rename)
+
+" Show all diagnostics
+nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
+" Find symbol of current document
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
