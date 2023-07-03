@@ -109,8 +109,9 @@ bindsym $mod+4 exec xmodmap ~/Xmodmap2
 # focus the child container
 #bindsym $mod+d focus child
 
-set $screen1 "HDMI-1"
-set $screen2 "eDP-1"
+set $screen1 "HDMI-1" # left external screen
+set $screen2 "eDP-1" # laptop screen
+#set $screen2 "DP-1" # right external screen
 
 set $wk1 "1: &#xf268;"
 set $wk2 "2: &#xf121;"
