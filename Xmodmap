@@ -1,6 +1,3 @@
-! ScrLk key become Mode_switch
-keycode 78 = Mode_switch
-
 ! Navigation keys on Mode_switch / Modified alt gr
 keycode 38 = a A Left 0 agrave Agrave
 keycode 39 = r R Down 0 egrave Egrave

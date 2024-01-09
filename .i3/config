@@ -103,15 +103,12 @@ bindsym $mod+1 exec setxkbmap us -variant colemak && xmodmap ~/Xmodmap;
 bindsym $mod+2 exec setxkbmap fr
 bindsym $mod+3 exec setxkbmap us
 
-# load keyboard config with left maj modifier
-bindsym $mod+4 exec xmodmap ~/Xmodmap2
-
 # focus the child container
 #bindsym $mod+d focus child
 
 set $screen1 "HDMI-1" # left external screen
 set $screen2 "eDP-1" # laptop screen
-#set $screen2 "DP-1" # right external screen
+set $screen3 "DP-1" # right external screen
 
 set $wk1 "1: &#xf268;"
 set $wk2 "2: &#xf121;"
@@ -126,8 +123,8 @@ set $wk6 "6"
 
 workspace $wk1 output $screen1
 workspace $wk2 output $screen1
-workspace $wk3 output $screen1
-workspace $wk4 output $screen1
+workspace $wk3 output $screen3
+workspace $wk4 output $screen3
 workspace $wk5 output $screen2
 workspace $wk6 output $screen2
 # workspace $wk7 output $screen1

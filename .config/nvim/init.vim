@@ -25,6 +25,7 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'} " for ghcmod-vim
 Plug 'eagletmt/ghcmod-vim'
 Plug 'pbrisbin/vim-syntax-shakespeare' " shakespeare highlight
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'github/copilot.vim'
 
 " Initialize plugin system
 call plug#end()
