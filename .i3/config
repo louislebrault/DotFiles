@@ -96,7 +96,7 @@ bindsym $mod+Shift+f exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+Shift+G move workspace to output up
 
 # Bind autolock
-bindsym $mod+l exec i3lock -c 000000 -n
+bindsym $mod+l exec xscreensaver-command -lock
 
 # keyboard layouts
 bindsym $mod+1 exec setxkbmap us -variant colemak && xmodmap ~/Xmodmap;
@@ -203,6 +203,8 @@ exec autorandr multi
 # Background
 exec_always feh --bg-scale ~/Pictures/wp-earth.jpg
 
+# fix chrome ignoring xmodmap mappings, needs to run before xmodmap command (https://askubuntu.com/a/1011482)
+exec_always setxkbmap -option lv3:rwin_switch
 # Keyboard mapping modifications
 exec_always xmodmap ~/Xmodmap
 
@@ -217,3 +219,6 @@ exec_always xcompmgr
 
 # less blue light, night mode. latlng is Paris
 exec redshift -l 48.864716:2.349014
+
+# start screensaver, needed for lock
+exec xscreensaver
