@@ -31,7 +31,7 @@ focus_follows_mouse no
 bindsym $mod+Return exec alacritty
 
 # open browser
-bindsym $mod+u exec chromium
+bindsym $mod+u exec firefox
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -99,7 +99,7 @@ bindsym $mod+Shift+G move workspace to output up
 bindsym $mod+l exec xscreensaver-command -lock
 
 # keyboard layouts
-bindsym $mod+1 exec setxkbmap us -variant colemak && xmodmap ~/Xmodmap;
+bindsym $mod+1 exec setxkbmap us -variant colemak && setxkbmap -option lv3:rwin_switch && xmodmap ~/Xmodmap;
 bindsym $mod+2 exec setxkbmap fr
 bindsym $mod+3 exec setxkbmap us
 
@@ -201,7 +201,7 @@ bar {
 exec autorandr multi
 
 # Background
-exec_always feh --bg-scale ~/Pictures/wp-earth.jpg
+exec_always feh --bg-scale ~/Pictures/tomas-sanchez-lagoon.jpg
 
 # fix chrome ignoring xmodmap mappings, needs to run before xmodmap command (https://askubuntu.com/a/1011482)
 exec_always setxkbmap -option lv3:rwin_switch

@@ -24,8 +24,8 @@ Plug 'tpope/vim-surround'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} " for ghcmod-vim
 Plug 'eagletmt/ghcmod-vim'
 Plug 'pbrisbin/vim-syntax-shakespeare' " shakespeare highlight
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'github/copilot.vim'
+
 
 " Initialize plugin system
 call plug#end()
@@ -40,6 +40,10 @@ colorscheme gruvbox
 set number relativenumber
 set tags=tags; " look for tags file
 set autoindent
+
+" needed to make webpack rebuild on save on some projects
+" more info on https://github.com/gatsbyjs/gatsby/issues/36225#issuecomment-1207325457
+set backupcopy=yes
 
 autocmd BufWritePre * %s/\s\+$//e " remove trailling whitespaces on save
 
@@ -196,3 +200,6 @@ nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
 nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+
+" auto-format code and add missing imports automatically on save, added for go
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')

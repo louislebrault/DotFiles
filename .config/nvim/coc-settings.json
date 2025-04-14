@@ -3,6 +3,14 @@
     "elm"
   ],
   "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    },
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
@@ -29,5 +37,5 @@
   },
   "diagnostic.displayByAle": true,
   "diagnostic.virtualText": true,
-  "codeLens.enable": true,
+  "codeLens.enable": true
 }
