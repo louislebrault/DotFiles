@@ -17,3 +17,4 @@
 !/.config/nvim/
 !/.config/nvim/**
 !/.xscreensaver
+!/versioned
