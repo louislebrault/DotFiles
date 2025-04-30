@@ -9,8 +9,6 @@
 !/.xmonad/xmonad.hs
 !/Xmodmap
 !/.zshrc
-!/.oh-my-zsh
-!/.oh-my-zsh/**
 !/.config/
 !/.config/termite/
 !/.config/termite/**
