@@ -201,5 +201,8 @@ nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver']
+
 " auto-format code and add missing imports automatically on save, added for go
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')

@@ -96,7 +96,7 @@ bindsym $mod+Shift+f exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+Shift+G move workspace to output up
 
 # Bind autolock
-bindsym $mod+l exec xscreensaver-command -lock
+bindsym $mod+l exec i3lock -i ~/versioned/second-reality-face.png
 
 # keyboard layouts
 bindsym $mod+1 exec setxkbmap us -variant colemak && setxkbmap -option lv3:rwin_switch && xmodmap ~/Xmodmap;
@@ -201,7 +201,7 @@ bar {
 exec autorandr multi
 
 # Background
-exec_always feh --bg-scale ~/versioned/i3-background.png
+exec_always feh --bg-center ~/versioned/background.jpg
 
 # fix chrome ignoring xmodmap mappings, needs to run before xmodmap command (https://askubuntu.com/a/1011482)
 exec_always setxkbmap -option lv3:rwin_switch

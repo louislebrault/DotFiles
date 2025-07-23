@@ -5,6 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+source /usr/share/nvm/init-nvm.sh
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -101,7 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-export NPM_CONFIG_PREFIX="$HOME/.node_modules"
 export PATH="bin:node_modules/.bin:$HOME/.node_modules/bin:$PATH:$HOME/.ghcup/bin"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
