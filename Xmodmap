@@ -1,5 +1,9 @@
+! UPDATE : the two space keys are not identified as different keys now.
+! I therefore mapped the right space key to Menu in the keyboard hardware, and
+! remap Menu key to Mode_switch here.
+
 ! ScrLk key (right space bar on splitted keyboad) become Mode_switch
-keycode 78 = Mode_switch
+keycode 135 = Mode_switch
 
 ! Navigation keys on Mode_switch / Modified alt gr
 keycode 38 = a A Left 0 agrave Agrave
