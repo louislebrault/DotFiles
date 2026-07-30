@@ -17,3 +17,9 @@
 !/.xscreensaver
 !/versioned/
 !/versioned/**
+!/.claude/
+!/.claude/skills/
+!/.claude/skills/commit-message/
+!/.claude/skills/commit-message/**
+!/.claude/skills/spec-issue/
+!/.claude/skills/spec-issue/**

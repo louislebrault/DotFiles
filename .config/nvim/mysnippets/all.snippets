@@ -45,3 +45,107 @@ snippet vuesetupspc "vue3 setup single page component" b
 <style scoped>
 </style>
 endsnippet
+
+# ============================================================
+# COMMAND USE CASE
+# ============================================================
+
+snippet uc_command_input "Domain Command Input" b
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\UseCase\Command\\${1:UseCaseName};
+
+final readonly class Input
+{
+    public function __construct(
+        ${2}
+    ) {}
+}
+endsnippet
+
+snippet uc_command_output "Domain Command Output" b
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\UseCase\Command\\${1:UseCaseName};
+
+final readonly class Output
+{
+    public function __construct(${2}) {}
+}
+endsnippet
+
+snippet uc_command_handler "Domain Command Handler" b
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\UseCase\Command\\${1:UseCaseName};
+
+final readonly class Handler
+{
+    public function __construct(
+        ${2}
+    ) {}
+
+    public function __invoke(Input \$input): Output
+    {
+        ${3}
+    }
+}
+endsnippet
+
+# ============================================================
+# QUERY USE CASE
+# ============================================================
+
+snippet mypinput "Domain Query Input" b
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\UseCase\Query\\${1:UseCaseName};
+
+final readonly class Input
+{
+    public function __construct(
+        ${2}
+    ) {}
+}
+endsnippet
+
+snippet mypoutput "Domain Query Output" b
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\UseCase\Query\\${1:UseCaseName};
+
+final readonly class Output
+{
+    public function __construct(${2}) {}
+}
+endsnippet
+
+snippet myphandler "Domain Query Handler" b
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\UseCase\Query\\${1:UseCaseName};
+
+final readonly class Handler
+{
+    public function __construct(
+        ${2}
+    ) {}
+
+    public function __invoke(Input \$input): Output
+    {
+        ${3}
+    }
+}
+endsnippet

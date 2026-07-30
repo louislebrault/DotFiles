@@ -137,7 +137,7 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk/"
+export JAVA_HOME="/usr/lib/jvm/java-17-openjdk/"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Fixes grey java apps
 export PATH=$PATH:$JAVA_HOME/bin:$PATH
 

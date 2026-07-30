@@ -37,5 +37,5 @@
   },
   "diagnostic.displayByAle": true,
   "diagnostic.virtualText": true,
-  "codeLens.enable": true
+  "codeLens.enable": true,
 }

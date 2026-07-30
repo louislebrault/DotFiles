@@ -6,8 +6,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot' " syntax hightlight and indent for all languages
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Need to run :CocInstall <some-ts-server> on fresh installs, for every lsp
-" needed
+"" Need to run :CocInstall <some-ts-server> on fresh installs, for every lsp
+"" needed
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale' " Linting
 Plug 'zivyangll/git-blame.vim'
@@ -20,11 +20,10 @@ Plug 'itchyny/lightline.vim' " status bar
 Plug 'morhetz/gruvbox' " colorscheme
 Plug 'SirVer/ultisnips' " snippets engine
 Plug 'tpope/vim-surround'
-"Plug 'ludovicchabant/vim-gutentags' " automatic ctags generation
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} " for ghcmod-vim
 Plug 'eagletmt/ghcmod-vim'
 Plug 'pbrisbin/vim-syntax-shakespeare' " shakespeare highlight
-Plug 'github/copilot.vim'
+"Plug 'github/copilot.vim'
 
 
 " Initialize plugin system
@@ -123,6 +122,8 @@ let g:ale_fix_on_save = 1
 let g:ale_disable_lsp = 1
 " Only run linters named in ale_linters settings.
 let g:ale_linters_explicit = 1
+" Disable inline linting errors display
+let g:ale_virtualtext_cursor=0
 
 " =========
 " trying to make gutentag more lightweight, dunno how effective this is
