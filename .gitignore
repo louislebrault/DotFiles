@@ -25,3 +25,5 @@
 !/.claude/skills/spec-issue/**
 !/.claude/skills/review-in-chunks/
 !/.claude/skills/review-in-chunks/vendor
+!/.claude/skills/split-pr/
+!/.claude/skills/split-pr/**

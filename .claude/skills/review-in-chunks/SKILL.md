@@ -118,7 +118,10 @@ not the rendering.
 
 Write a spec JSON (matching the schema documented at the top of
 `server.py`): `title`, `repoPath`, `base`, `head`, and `batches` as
-`[{"rationale": ..., "files": [...]}]` in the order fixed in step 4. Omit
+`[{"title": ..., "rationale": ..., "files": [...]}]` in the order fixed in
+step 4. `title` is a short (2-5 word) label for what the batch covers (e.g.
+"Auth middleware", "Payment webhook handlers") — it's shown on the batch's
+tab alongside its number and line count. Omit
 `head` (or leave it `""`) when step 1 resolved to the working tree. Write
 the spec to the session scratchpad directory, then launch the server
 detached so it can't block the rest of the workflow:
@@ -177,8 +180,8 @@ change is:
    last file is removed, drop the now-empty batch entirely (don't leave a
    blank tab).
 
-Rewrite `spec.json` with the patched batches, updating only the rationale
-text for batches that actually changed. Leave `<spec>.state.json` otherwise
+Rewrite `spec.json` with the patched batches, updating only the title/
+rationale text for batches that actually changed. Leave `<spec>.state.json` otherwise
 untouched — stale entries for deleted files are harmless and don't need
 cleanup. Then restart the server **on the same `--port`** so the
 already-open browser tab keeps working after one manual refresh:

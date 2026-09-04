@@ -20,7 +20,7 @@ Spec schema (see SKILL.md for how batches/files are derived):
   "base": "origin/main",
   "head": "origin/feat/x",
   "batches": [
-    {"rationale": "why this batch is grouped/placed here", "files": ["a.php", "b.php"]}
+    {"title": "short label shown on the tab", "rationale": "why this batch is grouped/placed here", "files": ["a.php", "b.php"]}
   ]
 }
 
@@ -155,7 +155,12 @@ def build_report_data(spec):
     for batch in spec["batches"]:
         files = [build_file_entry(repo_path, diff_range, p) for p in batch["files"]]
         total = sum(f["added"] + f["removed"] for f in files)
-        batches.append({"rationale": batch["rationale"], "totalLines": total, "files": files})
+        batches.append({
+            "title": batch.get("title", ""),
+            "rationale": batch["rationale"],
+            "totalLines": total,
+            "files": files,
+        })
 
     return {
         "title": spec.get("title", f"{base}...{head_label}"),

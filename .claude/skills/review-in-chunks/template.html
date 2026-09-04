@@ -277,10 +277,13 @@ function renderTabbar() {
     const classes = ['tab'];
     if (bi === activeBatch) classes.push('active');
     if (batchDone(batch)) classes.push('done');
+    const label = batch.title
+      ? `Batch ${bi + 1}: ${batch.title} — ${batch.totalLines} lines`
+      : `Batch ${bi + 1} — ${batch.totalLines} lines`;
     bar.appendChild(el('button', {
       class: classes.join(' '),
       onclick: () => { activeBatch = bi; renderTabbar(); renderBatch(bi); },
-    }, [`Batch ${bi + 1} — ${batch.totalLines} lines`]));
+    }, [label]));
   });
 }
 
