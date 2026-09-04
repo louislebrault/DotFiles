@@ -123,8 +123,8 @@ set $wk6 "6"
 
 workspace $wk1 output $screen1
 workspace $wk2 output $screen1
-workspace $wk3 output $screen3
-workspace $wk4 output $screen3
+workspace $wk3 output $screen1
+workspace $wk4 output $screen1
 workspace $wk5 output $screen2
 workspace $wk6 output $screen2
 # workspace $wk7 output $screen1
@@ -198,7 +198,7 @@ bar {
 # =========== Exec on startup ==========
 
 # load default layout
-exec autorandr multi
+exec autorandr --change
 
 # Background
 exec_always feh --bg-center ~/versioned/background.jpg
