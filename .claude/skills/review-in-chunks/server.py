@@ -5,12 +5,16 @@ inline draft comments) from a JSON batch spec, backed by a local HTTP server.
 Serving live (instead of writing a static file) lets the report:
   - refresh diff content for already-assigned files in place (GET /api/report
     recomputes from git on every call)
-  - flag when the changed-file set no longer matches the spec (files added
-    or removed locally) without silently re-grouping — grouping/ordering
-    stays a job for whoever wrote the spec, not this script
+  - auto-detect renames (git's own --find-renames) and patch the spec/state
+    files in place so a plain rename never drops read status or needs a
+    Claude-driven re-batch
+  - flag when the changed-file set no longer matches the spec after that
+    (files genuinely added or removed locally) without silently
+    re-grouping — grouping/ordering for those stays a job for whoever wrote
+    the spec, not this script
   - persist read/fold state and draft comments to a JSON file on disk
     (state file, sibling to the spec), so a server restart after the spec
-    is rewritten (new grouping) doesn't lose review progress
+    is patched doesn't lose review progress
 
 Spec schema (see SKILL.md for how batches/files are derived):
 
@@ -28,13 +32,19 @@ Omit "head" (or set it to "") to diff against the working tree instead of a
 ref — i.e. review uncommitted changes on top of `base`, merge-base computed
 automatically.
 
+The report also includes a "Commits" tab listing every commit in
+base..head (git log order), derived live from the same repo/refs — nothing
+to add to the spec for it.
+
 Usage: server.py --spec spec.json [--port 8765] [--state state.json]
 Prints the URL once bound. Ctrl-C to stop.
 
 To reflect local edits: GET /api/report is recomputed from git on every
 request, so files already in the spec always show current content on a
-browser refresh. If files were added/removed, rewrite spec.json (re-run
-steps 3-5 of the skill) and restart this script on the same --port — state
+browser refresh. Renames are detected and patched into spec.json/state.json
+automatically, no restart needed. If files were genuinely added or removed,
+ask Claude to patch the existing batches for those changes (see SKILL.md
+step 8) and restart this script on the same --port — state
 (read/fold/comments) survives the restart via the state file.
 """
 
@@ -121,6 +131,42 @@ def build_file_entry(repo_path, diff_range, path):
     }
 
 
+def resolve_log_range(repo_path, base, head):
+    """Two-dot range for `git log`: commits unique to head since it diverged
+    from base, matching GitHub's PR "Commits" tab. Working-tree mode (no
+    head) uses the same merge-base as the diff, against HEAD instead of the
+    working tree, since commits (unlike file content) can't be "uncommitted".
+    """
+    if head:
+        return f"{base}..{head}"
+    merge_base = run_git(repo_path, ["merge-base", base, "HEAD"]).strip()
+    return f"{merge_base}..HEAD"
+
+
+COMMIT_FIELD_SEP = "\x1f"
+COMMIT_REC_SEP = "\x1e"
+
+
+def build_commits(repo_path, log_range):
+    fmt = COMMIT_FIELD_SEP.join(["%H", "%h", "%an", "%ad", "%s", "%b"]) + COMMIT_REC_SEP
+    text = run_git(repo_path, ["log", log_range, "--date=relative", f"--pretty=format:{fmt}"])
+    commits = []
+    for record in text.split(COMMIT_REC_SEP):
+        record = record.strip("\n")
+        if not record:
+            continue
+        sha, short_sha, author, date, subject, body = record.split(COMMIT_FIELD_SEP, 5)
+        commits.append({
+            "sha": sha,
+            "shortSha": short_sha,
+            "author": author,
+            "date": date,
+            "subject": subject,
+            "body": body.strip("\n"),
+        })
+    return commits
+
+
 def resolve_diff_range(repo_path, base, head):
     """Returns the positional args `git diff`/`git diff --numstat` need.
 
@@ -137,6 +183,50 @@ def resolve_diff_range(repo_path, base, head):
 def all_changed_files(repo_path, diff_range):
     text = run_git(repo_path, ["diff", "--name-only", *diff_range])
     return [line for line in text.strip().splitlines() if line]
+
+
+def detect_renames(repo_path, diff_range):
+    """Map of old_path -> new_path for renames git recognizes in this diff range."""
+    text = run_git(repo_path, ["diff", "--find-renames", "--name-status", *diff_range])
+    renames = {}
+    for line in text.strip().splitlines():
+        parts = line.split("\t")
+        if len(parts) == 3 and parts[0].startswith("R"):
+            renames[parts[1]] = parts[2]
+    return renames
+
+
+def reconcile_renames(spec, state, spec_path, state_path):
+    """Auto-patch spec/state in place for files git recognizes as renamed since
+    the spec was written, so a plain rename never needs a Claude-driven
+    re-batch and never drops read status or draft comments.
+    """
+    repo_path = spec["repoPath"]
+    diff_range, _ = resolve_diff_range(repo_path, spec["base"], spec.get("head", ""))
+    current_files = set(all_changed_files(repo_path, diff_range))
+    spec_files = {p for b in spec["batches"] for p in b["files"]}
+    missing = spec_files - current_files
+    if not missing:
+        return
+
+    renames = detect_renames(repo_path, diff_range)
+    changed = False
+    for old_path in missing:
+        new_path = renames.get(old_path)
+        if not new_path or new_path not in current_files:
+            continue
+        for batch in spec["batches"]:
+            batch["files"] = [new_path if p == old_path else p for p in batch["files"]]
+        if old_path in state["files"]:
+            state["files"][new_path] = state["files"].pop(old_path)
+        for comment in state["comments"]:
+            if comment.get("file") == old_path:
+                comment["file"] = new_path
+        changed = True
+
+    if changed:
+        spec_path.write_text(json.dumps(spec, indent=2))
+        state_path.write_text(json.dumps(state, indent=2))
 
 
 def build_report_data(spec):
@@ -168,6 +258,7 @@ def build_report_data(spec):
         "head": head_label,
         "batches": batches,
         "filesChanged": files_changed,
+        "commits": build_commits(repo_path, resolve_log_range(repo_path, base, head)),
     }
 
 
@@ -180,7 +271,7 @@ def load_state(state_path):
 VENDOR_CONTENT_TYPES = {".js": "application/javascript", ".css": "text/css"}
 
 
-def make_handler(spec, state_path, template_path, vendor_dir):
+def make_handler(spec, spec_path, state_path, template_path, vendor_dir):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, fmt, *args):
             pass  # keep stdout to the startup URL/PID line only
@@ -214,6 +305,7 @@ def make_handler(spec, state_path, template_path, vendor_dir):
                 self.end_headers()
                 self.wfile.write(body)
             elif self.path == "/api/report":
+                reconcile_renames(spec, load_state(state_path), spec_path, state_path)
                 self._send_json(build_report_data(spec))
             elif self.path == "/api/state":
                 self._send_json(load_state(state_path))
@@ -250,7 +342,7 @@ def main():
 
     template_path = Path(__file__).parent / "template.html"
     vendor_dir = Path(__file__).parent / "vendor"
-    handler = make_handler(spec, state_path, template_path, vendor_dir)
+    handler = make_handler(spec, spec_path, state_path, template_path, vendor_dir)
     httpd = HTTPServer(("127.0.0.1", args.port), handler)
     port = httpd.server_address[1]
 

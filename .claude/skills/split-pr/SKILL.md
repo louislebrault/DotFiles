@@ -50,25 +50,39 @@ hunk level and note that it'll need `git add -p`-style manual staging later
 Done when every changed file (or hunk, for mixed files) has a concern
 label and a one-line reason for that label.
 
-## 4. Judge whether splitting is worth it
+## 4. Judge whether a split is possible
 
-Recommend staying as one PR, and stop here, when any holds:
+Default assumption: the user is invoking this skill because they already
+want to split, not to be talked out of it. Don't gate on "is it worth it" —
+size and overhead are caveats to mention in step 6, not reasons to stop.
+Recommend staying as one PR, and stop here, only when:
 
-- Clustering produced exactly one concern.
-- The diff is small (roughly under 100-150 changed lines) — split overhead
-  outweighs the benefit even with 2+ concerns.
-- The concerns are mutually dependent enough that no merge order leaves
-  `<base>` in a working, compiling, test-passing state after only the first
-  split PR lands — true entanglement, not just adjacency.
+- Clustering produced exactly one concern — there's nothing to split.
+- The concerns are mutually dependent enough that no ordering — including a
+  stacked one where each branch builds on the previous — leaves any prefix
+  of the stack in a working, compiling, test-passing state. True
+  entanglement, not just adjacency.
 
-Otherwise (2+ concerns, real size, each independently mergeable in some
-order): proceed to step 5.
+Otherwise (2+ concerns, some valid ordering exists): proceed to step 5.
 
 ## 5. Build split candidates
 
-Default candidate: one PR per concern, ordered so each is mergeable into
-main on its own (dependency order — a concern another depends on merges
-first).
+Default candidate: one PR per concern, stacked in dependency order — PR2's
+branch is created on top of PR1's branch (not on top of `<base>`), PR3 on
+top of PR2, and so on. A concern another depends on comes earlier in the
+stack. Each PR's own diff (against its base, i.e. the previous branch in the
+stack, or `<base>` for the first) should contain only that concern's
+changes — that's what makes it independently reviewable even though it
+isn't independently mergeable until its predecessors land.
+
+Concerns with no dependency between them don't need to stack — they can
+branch off `<base>` in parallel instead, merging in any order. Only chain
+a dependency into the stack when one concern's code genuinely requires the
+other's.
+
+Call out, per stacked candidate: as each earlier PR merges, later branches
+need rebasing onto the new `<base>` (otherwise their diff keeps showing
+already-merged changes when compared straight to `<base>`).
 
 Only add a second candidate if a genuinely different grouping applies to
 *this* diff — e.g. a refactor that's pure prep-work for a feature reads
@@ -77,12 +91,15 @@ risky change into its own PR for focused review changes the split. Don't
 invent variations that don't apply. Cap at 2-4 candidates.
 
 For each candidate, for each resulting PR: title, file/hunk contents,
-one-line rationale, and what it depends on merging first (if anything).
+one-line rationale, and what it's based on (previous PR's branch, or
+`<base>` if none).
 
 ## 6. Recommend
 
 Report the judgment from step 4 first. If splitting: present the
 candidate(s) from step 5, mark the one to recommend — fewest PRs where
-every PR is still independently coherent and mergeable standalone, unless
-another candidate clearly reduces review risk — and give a one-line reason.
-If not splitting: say which of step 4's conditions applied.
+every PR is still independently coherent and reviewable in its position in
+the stack, unless another candidate clearly reduces review risk — and give
+a one-line reason. Mention any size/overhead caveats here as color, not as
+an argument against the split. If not splitting: say which of step 4's
+conditions applied.

@@ -42,15 +42,31 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: var(--bg); color: var(--fg);
   }
+  #sticky-header { position: sticky; top: 0; z-index: 5; }
+
   #topbar {
-    position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 0.7rem 1.2rem; background: var(--sidebar-bg); border-bottom: 1px solid var(--border);
   }
   #topbar h1 { font-size: 0.95rem; margin: 0; }
   #refresh-btn { font-weight: 600; }
 
+  #progress-wrap {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.5rem 1.2rem; background: var(--bg); border-bottom: 1px solid var(--border);
+  }
+  #progress-track {
+    flex: 1; height: 8px; border-radius: 999px; background: var(--border); overflow: hidden;
+  }
+  #progress-fill {
+    height: 100%; width: 0%; border-radius: 999px; background: var(--done-fg);
+    transition: width 0.4s ease;
+  }
+  #progress-label { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  #progress-wrap.celebrate #progress-fill { background: var(--accent); }
+
   #tabbar {
-    position: sticky; top: 48px; z-index: 5; display: flex; gap: 0.4rem; overflow-x: auto;
+    display: flex; gap: 0.4rem; overflow-x: auto;
     padding: 0.6rem 1.2rem; background: var(--bg); border-bottom: 1px solid var(--border);
   }
   .tab {
@@ -69,8 +85,8 @@
 
   #layout { flex: 1; display: flex; }
   nav {
-    position: sticky; top: 96px; align-self: flex-start;
-    width: 260px; max-height: calc(100vh - 96px); overflow-y: auto;
+    position: sticky; top: var(--sticky-h, 136px); align-self: flex-start;
+    width: 260px; max-height: calc(100vh - var(--sticky-h, 136px)); overflow-y: auto;
     background: var(--sidebar-bg); border-right: 1px solid var(--border);
     padding: 1rem; flex-shrink: 0;
   }
@@ -95,7 +111,7 @@
     list-style: none; cursor: pointer; padding: 0.6rem 1rem;
     background: var(--sidebar-bg); font-family: ui-monospace, monospace; font-size: 0.85rem;
     display: flex; align-items: center; gap: 0.6rem; user-select: none;
-    position: sticky; top: 96px; z-index: 4; border-radius: 6px 6px 0 0;
+    position: sticky; top: var(--sticky-h, 136px); z-index: 4; border-radius: 6px 6px 0 0;
   }
   details.file:not([open]) > summary { border-radius: 6px; }
   details.file > table.diff { border-radius: 0 0 5px 5px; overflow: hidden; }
@@ -143,6 +159,16 @@
   .comment-box .text { white-space: pre-wrap; font-family: -apple-system, sans-serif; font-size: 0.85rem; }
   .comment-box button { font-size: 0.7rem; padding: 0.1rem 0.5rem; }
 
+  .commit { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 0.6rem; padding: 0.7rem 1rem; }
+  .commit-header { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .commit-sha { font-family: ui-monospace, monospace; color: var(--muted); font-size: 0.78rem; }
+  .commit-subject { font-weight: 600; font-size: 0.88rem; }
+  .commit-meta { color: var(--muted); font-size: 0.75rem; white-space: nowrap; margin-left: auto; }
+  .commit-body { margin: 0.5rem 0 0; white-space: pre-wrap; font-family: -apple-system, sans-serif; font-size: 0.82rem; }
+  .commit-actions { margin-top: 0.5rem; }
+  .commit-actions button { font-size: 0.72rem; padding: 0.15rem 0.6rem; }
+  .commit .comment-box, .commit .composer-box { margin-top: 0.5rem; }
+
   #review-panel {
     position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 10;
     background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 10px;
@@ -155,21 +181,31 @@
   #review-panel-body { padding: 0.7rem 1rem; overflow-y: auto; display: none; }
   #review-panel.open #review-panel-body { display: block; }
   #review-panel-list { list-style: none; margin: 0 0 0.7rem; padding: 0; font-size: 0.78rem; }
-  #review-panel-list li { border-bottom: 1px solid var(--border); padding: 0.4rem 0; }
+  #review-panel-list li {
+    border-bottom: 1px solid var(--border); padding: 0.4rem 0;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem;
+  }
   #review-panel-list code { display: block; color: var(--muted); }
+  #review-panel-list button { font-size: 0.7rem; padding: 0.1rem 0.5rem; flex-shrink: 0; }
   #review-panel-actions { display: flex; gap: 0.5rem; }
   #review-panel-empty { color: var(--muted); font-size: 0.8rem; }
 </style>
 </head>
 <body>
-<div id="topbar">
-  <h1 id="report-title"></h1>
-  <div style="display:flex; gap:0.5rem;">
-    <button id="theme-btn" onclick="toggleTheme()"></button>
-    <button id="refresh-btn" onclick="refresh()">Refresh</button>
+<div id="sticky-header">
+  <div id="topbar">
+    <h1 id="report-title"></h1>
+    <div style="display:flex; gap:0.5rem;">
+      <button id="theme-btn" onclick="toggleTheme()"></button>
+      <button id="refresh-btn" onclick="refresh()">Refresh</button>
+    </div>
   </div>
+  <div id="progress-wrap">
+    <div id="progress-track"><div id="progress-fill"></div></div>
+    <span id="progress-label"></span>
+  </div>
+  <div id="tabbar"></div>
 </div>
-<div id="tabbar"></div>
 <div id="banner" hidden></div>
 <div id="layout">
   <nav><ul id="nav-list"></ul></nav>
@@ -193,7 +229,7 @@
 <script>
 let REPORT = null;   // from GET /api/report
 let STATE = null;    // {files: {path: {read, open, hash}}, comments: [...]}
-let activeBatch = 0;
+let activeTab = 0;   // -1 = Commits tab, else index into REPORT.batches
 let nextCommentId = 1;
 
 function el(tag, props = {}, children = []) {
@@ -240,15 +276,21 @@ async function loadAndRender() {
   REPORT = report;
   STATE = reconcileState(STATE, REPORT);
   await saveState();
-  if (activeBatch >= REPORT.batches.length) activeBatch = 0;
+  if (activeTab >= REPORT.batches.length) activeTab = 0;
   renderTitle();
   renderBanner();
   renderTabbar();
-  renderBatch(activeBatch);
+  renderActiveTab();
+  renderProgress();
   refreshPanel();
 }
 
 function refresh() { loadAndRender(); }
+
+function renderActiveTab() {
+  if (activeTab === -1) renderCommitsTab();
+  else renderBatch(activeTab);
+}
 
 function renderTitle() {
   const total = REPORT.batches.reduce((s, b) => s + b.totalLines, 0);
@@ -263,7 +305,8 @@ function renderBanner() {
   const parts = [...added.map(f => `+${f}`), ...removed.map(f => `-${f}`)];
   banner.hidden = false;
   banner.textContent = `Files changed since this review was set up: ${parts.join(', ')}. ` +
-    `Ask Claude to regroup batches (re-run steps 3-5) and restart the server.`;
+    `Ask Claude to update the existing batches for these changes — it should patch them ` +
+    `in place, not regroup everything from scratch.`;
 }
 
 function batchDone(batch) {
@@ -273,16 +316,20 @@ function batchDone(batch) {
 function renderTabbar() {
   const bar = document.getElementById('tabbar');
   bar.innerHTML = '';
+  bar.appendChild(el('button', {
+    class: `tab${activeTab === -1 ? ' active' : ''}`,
+    onclick: () => { activeTab = -1; renderTabbar(); renderActiveTab(); },
+  }, [`Commits (${REPORT.commits.length})`]));
   REPORT.batches.forEach((batch, bi) => {
     const classes = ['tab'];
-    if (bi === activeBatch) classes.push('active');
+    if (bi === activeTab) classes.push('active');
     if (batchDone(batch)) classes.push('done');
     const label = batch.title
       ? `Batch ${bi + 1}: ${batch.title} — ${batch.totalLines} lines`
       : `Batch ${bi + 1} — ${batch.totalLines} lines`;
     bar.appendChild(el('button', {
       class: classes.join(' '),
-      onclick: () => { activeBatch = bi; renderTabbar(); renderBatch(bi); },
+      onclick: () => { activeTab = bi; renderTabbar(); renderActiveTab(); },
     }, [label]));
   });
 }
@@ -348,6 +395,61 @@ function renderFile(file, fi) {
   return details;
 }
 
+function renderCommitsTab() {
+  document.getElementById('nav-list').innerHTML = '';
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  if (!REPORT.commits.length) {
+    main.appendChild(el('p', { class: 'rationale' }, ['No commits in this range.']));
+    return;
+  }
+  REPORT.commits.forEach(commit => main.appendChild(renderCommit(commit)));
+}
+
+function renderCommit(commit) {
+  const hasBody = commit.body.trim().length > 0;
+  const header = el('div', { class: 'commit-header' }, [
+    el('code', { class: 'commit-sha' }, [commit.shortSha]),
+    el('span', { class: 'commit-subject' }, [commit.subject]),
+    el('span', { class: 'commit-meta' }, [`${commit.author} · ${commit.date}`]),
+  ]);
+  const wrap = el('div', { class: 'commit' }, [header]);
+
+  if (hasBody) {
+    wrap.appendChild(el('pre', { class: 'commit-body' }, [commit.body]));
+  }
+
+  const existing = findCommitComment(commit.sha);
+  if (existing) {
+    wrap.appendChild(commentBox(existing));
+  } else {
+    wrap.appendChild(el('div', { class: 'commit-actions' }, [
+      el('button', { onclick: () => openCommitComposer(commit.sha, wrap) }, ['Comment']),
+    ]));
+  }
+  return wrap;
+}
+
+function openCommitComposer(sha, wrap) {
+  if (wrap.querySelector('.composer-box')) return;
+  const actionsDiv = wrap.querySelector('.commit-actions');
+
+  const textarea = el('textarea', { placeholder: 'Leave feedback on this commit (reword, squash, reorder…)' });
+  const composerBox = el('div', { class: 'composer-box' });
+  const saveBtn = el('button', {
+    class: 'primary',
+    onclick: () => {
+      if (!textarea.value.trim()) return;
+      const comment = addCommitComment(sha, textarea.value.trim());
+      composerBox.replaceWith(commentBox(comment));
+    },
+  }, ['Comment']);
+  const cancelBtn = el('button', { onclick: () => composerBox.replaceWith(actionsDiv) }, ['Cancel']);
+  composerBox.append(textarea, el('div', { class: 'actions' }, [saveBtn, cancelBtn]));
+  actionsDiv.replaceWith(composerBox);
+  textarea.focus();
+}
+
 function toggleRead(path) {
   const f = STATE.files[path];
   f.read = !f.read;
@@ -357,7 +459,7 @@ function toggleRead(path) {
 }
 
 function toggleReadAll() {
-  const batch = REPORT.batches[activeBatch];
+  const batch = REPORT.batches[activeTab];
   const markRead = !batchDone(batch);
   batch.files.forEach(f => {
     STATE.files[f.path].read = markRead;
@@ -368,12 +470,32 @@ function toggleReadAll() {
 }
 
 function advanceIfBatchDone() {
-  if (batchDone(REPORT.batches[activeBatch]) && activeBatch + 1 < REPORT.batches.length) {
-    activeBatch++;
+  if (batchDone(REPORT.batches[activeTab]) && activeTab + 1 < REPORT.batches.length) {
+    activeTab++;
   }
   renderTabbar();
-  renderBatch(activeBatch);
+  renderActiveTab();
+  renderProgress();
 }
+
+function renderProgress() {
+  const files = REPORT.batches.flatMap(b => b.files);
+  const lineCount = f => f.added + f.removed;
+  const total = files.reduce((s, f) => s + lineCount(f), 0);
+  const read = files.filter(f => STATE.files[f.path] && STATE.files[f.path].read)
+    .reduce((s, f) => s + lineCount(f), 0);
+  const pct = total ? Math.round((read / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = `${pct}%`;
+  document.getElementById('progress-label').textContent = `${read} / ${total} lines read`;
+  document.getElementById('progress-wrap').classList.toggle('celebrate', read === total && total > 0);
+  updateStickyOffset();
+}
+
+function updateStickyOffset() {
+  const h = document.getElementById('sticky-header').offsetHeight;
+  document.documentElement.style.setProperty('--sticky-h', `${h}px`);
+}
+window.addEventListener('resize', updateStickyOffset);
 
 const LANG_BY_EXT = {
   php: 'php', js: 'javascript', mjs: 'javascript', cjs: 'javascript', jsx: 'javascript',
@@ -447,18 +569,20 @@ function openComposer(filePath, line, row) {
   textarea.focus();
 }
 
+function commentBox(comment) {
+  const removeBtn = el('button', { onclick: () => removeComment(comment.id) }, ['Remove']);
+  return el('div', { class: 'comment-box' }, [el('div', { class: 'text' }, [comment.text]), removeBtn]);
+}
+
 function renderCommentDisplay(comment) {
-  const removeBtn = el('button', {
-    onclick: () => {
-      STATE.comments = STATE.comments.filter(c => c.id !== comment.id);
-      saveState();
-      displayRow.remove();
-      refreshPanel();
-    },
-  }, ['Remove']);
-  const box = el('div', { class: 'comment-box' }, [el('div', { class: 'text' }, [comment.text]), removeBtn]);
-  const displayRow = el('tr', { class: 'comment-display' }, [el('td', { colspan: '3' }, [box])]);
-  return displayRow;
+  return el('tr', { class: 'comment-display' }, [el('td', { colspan: '3' }, [commentBox(comment)])]);
+}
+
+function removeComment(id) {
+  STATE.comments = STATE.comments.filter(c => c.id !== id);
+  saveState();
+  renderActiveTab();
+  refreshPanel();
 }
 
 function addComment(filePath, line, text) {
@@ -470,6 +594,23 @@ function addComment(filePath, line, text) {
   return comment;
 }
 
+function findCommitComment(sha) {
+  return STATE.comments.find(c => c.sha === sha);
+}
+
+function addCommitComment(sha, text) {
+  const comment = { id: nextCommentId++, sha, text };
+  STATE.comments.push(comment);
+  saveState();
+  refreshPanel();
+  return comment;
+}
+
+function commitLabel(sha) {
+  const commit = REPORT.commits.find(c => c.sha === sha);
+  return commit ? `${commit.shortSha} ${commit.subject}` : sha.slice(0, 7);
+}
+
 function refreshPanel() {
   document.getElementById('comment-count').textContent = STATE.comments.length;
   const list = document.getElementById('review-panel-list');
@@ -477,9 +618,10 @@ function refreshPanel() {
   list.innerHTML = '';
   empty.style.display = STATE.comments.length ? 'none' : 'block';
   STATE.comments.forEach(c => {
+    const label = c.sha ? commitLabel(c.sha) : `${c.file}:${c.lineNo}`;
     list.appendChild(el('li', {}, [
-      el('code', {}, [`${c.file}:${c.lineNo}`]),
-      c.text,
+      el('div', {}, [el('code', {}, [label]), c.text]),
+      el('button', { onclick: () => removeComment(c.id) }, ['Remove']),
     ]));
   });
 }
@@ -491,7 +633,17 @@ function togglePanel() {
 }
 
 function copyMarkdown() {
-  const md = STATE.comments.map(c => `- **${c.file}:${c.lineNo}** — ${c.text}`).join('\n');
+  const commitComments = STATE.comments.filter(c => c.sha);
+  const lineComments = STATE.comments.filter(c => !c.sha);
+  const parts = [];
+  if (commitComments.length) {
+    parts.push('## Commit feedback', ...commitComments.map(c => `- **${commitLabel(c.sha)}** — ${c.text}`));
+  }
+  if (lineComments.length) {
+    if (parts.length) parts.push('');
+    parts.push('## File comments', ...lineComments.map(c => `- **${c.file}:${c.lineNo}** — ${c.text}`));
+  }
+  const md = parts.join('\n');
   navigator.clipboard.writeText(md);
   const btn = document.getElementById('copy-md-btn');
   const original = btn.textContent;

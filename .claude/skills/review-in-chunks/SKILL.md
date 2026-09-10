@@ -116,6 +116,12 @@ button. It shells out to `git diff`/`git diff --numstat` itself per file on
 every request, so you only supply *which* files go in which batch and why —
 not the rendering.
 
+It also serves a "Commits" tab — every commit in the base..head range (`git
+log` order), with a free-text comment box per commit for reword/squash/
+reorder feedback, exported separately from file comments in "Copy as
+Markdown". This is derived live from `repoPath`/`base`/`head` — nothing to
+add to the spec for it.
+
 Write a spec JSON (matching the schema documented at the top of
 `server.py`): `title`, `repoPath`, `base`, `head`, and `batches` as
 `[{"title": ..., "rationale": ..., "files": [...]}]` in the order fixed in
@@ -149,23 +155,21 @@ The Refresh button in the report re-diffs every file already assigned to a
 batch and updates its content in place — nothing to do on your end for
 edits to files already in the spec.
 
-If the diff's file set changed (files added or removed locally), the report
-shows a banner naming them. Never respond by re-running steps 3-6 from
-scratch — that discards a structure the user has already spent time reading
-through, and can reorder everything for a change that only affects one
-file. Instead, patch the existing spec in place, regardless of how large the
-change is:
+Renames are handled automatically by `server.py` (it runs `git diff
+--find-renames` on every `/api/report` request and patches `spec.json` and
+`<spec>.state.json` in place — same group, same batch, same position;
+read/fold status and draft comments on the file carry over untouched). You
+never need to act on a plain rename.
 
-1. **Detect renames first**: `git diff --find-renames --name-status
-   <base>...<head>` (or against the working tree) — a line starting `R`
-   pairs an old path with a new path. For each such pair, edit the file's
-   path in `spec.json` in place (same group, same batch, same position),
-   then move that path's entry in `<spec>.state.json` from the old key to
-   the new key. A rename is not new content — the reviewer's read/fold
-   status and any draft comments on it carry over untouched.
+If the diff's file set changed for a reason that isn't a rename (files
+genuinely added or removed locally), the report shows a banner naming them.
+Never respond by re-running steps 3-6 from scratch — that discards a
+structure the user has already spent time reading through, and can reorder
+everything for a change that only affects one file. Instead, patch the
+existing spec in place, regardless of how large the change is:
 
-2. **Place genuinely new files**: for everything left in the banner's
-   "added" list, run the same step-3 pairing checks (test↔subject,
+1. **Place genuinely new files**: for everything in the banner's "added"
+   list, run the same step-3 pairing checks (test↔subject,
    interface↔implementor, schema↔mapping) but grep only against files
    *already in the spec*. A match joins that file's existing group/batch
    (even if that pushes the batch over budget — same rule as step 5, never
@@ -174,7 +178,7 @@ change is:
    references most (direct reference overrides count, same as step 4); if
    it references nothing already in the spec, append it to the last batch.
 
-3. **Drop removed files**: strip anything in the banner's "removed" list
+2. **Drop removed files**: strip anything in the banner's "removed" list
    from its group/batch. Leave the batch smaller — never merge it into a
    neighbor or reflow line counts across batches to rebalance. If a batch's
    last file is removed, drop the now-empty batch entirely (don't leave a
@@ -191,11 +195,11 @@ kill <pid-from-the-log>
 nohup python3 <this-skill-dir>/server.py --spec <spec.json> --port 8765 >/tmp/review-server.log 2>&1 &
 ```
 
-For every file that wasn't renamed, added, or removed: state survives the
-restart via the state file automatically — read/fold status carries over,
-and any file whose diff content actually changed has its read mark cleared
-automatically (the server hashes each file's diff and the client re-checks
-it on every load).
+For every file that wasn't added or removed: state survives the restart via
+the state file automatically — read/fold status carries over, and any file
+whose diff content actually changed has its read mark cleared automatically
+(the server hashes each file's diff and the client re-checks it on every
+load).
 
 If the report needs a change that isn't about *this* diff's batches (a
 different fold-by-default behavior, a new comment field) — that's a change
